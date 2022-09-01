@@ -23,7 +23,7 @@ const withAuth = (WrappedComponent: React.FC) => {
 
         // If auth token is in cookie, check if it is valid
         useQuery("auth-user", userGetMe, {
-            onError: (error: AxiosError) => {
+            onError: (error: AxiosError<any>) => {
                 const message = error.response ? error.response.data.message : error.message;
                 // Handle invalid auth token error and redirect somewhere
                 router.push("/");
