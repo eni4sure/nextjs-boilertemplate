@@ -7,9 +7,12 @@ import { useUser, withAuth } from "../utils";
 const Home: NextPage = () => {
     return (
         <>
-            <h1 className="text-5xl text-center underline">nextjs-tailwind-typescript-starter</h1>
-
-            <Loading isParent={false} />
+            <main className="flex flex-col items-center min-h-screen p-5">
+                <div className="m-auto">
+                    <h1 className="text-5xl text-center">nextjs-tailwind-typescript-starter</h1>
+                    <Loading isParent={false} />
+                </div>
+            </main>
         </>
     );
 };

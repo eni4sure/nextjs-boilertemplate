@@ -9,5 +9,5 @@ module.exports = {
     useTabs: false,
     singleQuote: false,
     bracketSpacing: true,
-    printWidth: 200
+    printWidth: 400
 };
