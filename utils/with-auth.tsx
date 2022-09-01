@@ -1,6 +1,6 @@
 import React from "react";
-import { useQuery } from "react-query";
 import { getCookie } from "cookies-next";
+import { useQuery } from "@tanstack/react-query";
 import { NextRouter, useRouter } from "next/router";
 
 import { userGetMe } from "../api";
@@ -22,7 +22,7 @@ const withAuth = (WrappedComponent: React.FC) => {
         }, []);
 
         // If auth token is in cookie, check if it is valid
-        useQuery("auth-user", userGetMe, {
+        useQuery(["auth-user"], userGetMe, {
             onError: (error: AxiosError<any>) => {
                 const message = error.response ? error.response.data.message : error.message;
                 // Handle invalid auth token error and redirect somewhere
