@@ -3,6 +3,7 @@
     "version": "1.0",
     "private": true,
     "author": "Eniola Osabiya <eosabiya@gmail.com>",
+    "license": "MIT",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
