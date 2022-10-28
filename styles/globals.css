@@ -3,9 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Specify default font below */
+@import url("react-toastify/dist/ReactToastify.css");
+
 @layer base {
+    /* Specify default font below */
     html {
         font-family: "DM Sans", sans-serif;
+    }
+
+    /* Remove daisy ui outline on form elements */
+    .input:focus,
+    .select:focus,
+    .textarea:focus {
+        @apply outline-0 !important;
     }
 }

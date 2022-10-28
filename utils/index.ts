@@ -1,6 +1,10 @@
+// All utils must be re-exported from this file.
+
 // Custom HOC
-export { default as withAuth } from "./with-auth";
-export { default as withoutAuth } from "./without-auth";
+export { withAuth, withoutAuth } from "./auth-guard";
 
 // Custom Hooks
 export { default as useUser } from "./use-user";
+
+// Custom Mehtods
+export { default as stringMethods } from "./string-methods";
