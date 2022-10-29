@@ -19,12 +19,11 @@ export const withAuth = <T extends object>(WrappedComponent: NextPage<T>) => {
     return class AuthenticatedPage extends React.Component<T> {
         static async getInitialProps(context: NextPageContext) {
             // If the auth-token doesn't exist, redirect to /login
-            // console.log({ cookie s: context.req?.headers.cookie });
             if (!hasCookie("auth-token", context)) {
-                return Redirect(context, `/auth/login?next=${context.pathname}`);
+                Redirect(context, `/auth/login?next=${context.asPath}`);
             }
 
-            return { props: {} };
+            return { query: context.query };
         }
 
         render() {
@@ -40,14 +39,14 @@ export const withoutAuth = <T extends object>(WrappedComponent: NextPage<T>) => 
             if (hasCookie("auth-token", context)) {
                 // If the there's a pending next route, go there.
                 if (context.query && context.query.next) {
-                    return Redirect(context, `${context.query.next}`);
+                    Redirect(context, `${context.query.next}`);
                 }
 
                 // Go to dashboard
-                return Redirect(context, "/dashboard");
+                Redirect(context, "/dashboard");
             }
 
-            return { props: {} };
+            return { query: context.query };
         }
 
         render() {
