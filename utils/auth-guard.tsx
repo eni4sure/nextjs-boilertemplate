@@ -13,6 +13,8 @@ export const Redirect = (context: any, target: string) => {
         // In the browser, we just replace the route
         Router.replace(target);
     }
+
+    return { props: {} };
 };
 
 export const withAuth = <T extends object>(WrappedComponent: NextPage<T>) => {
