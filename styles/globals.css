@@ -14,7 +14,8 @@
     /* Remove daisy ui outline on form elements */
     .input:focus,
     .select:focus,
-    .textarea:focus {
+    .textarea:focus,
+    .file-input:focus {
         @apply outline-0 !important;
     }
 }

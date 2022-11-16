@@ -4,7 +4,7 @@ import { hasCookie } from "cookies-next";
 import type { NextPage, NextPageContext } from "next";
 
 // Custom function to handle Redirect during getInitialProps
-export const Redirect = (context: any, target: string) => {
+export const Redirect = (context: NextPageContext, target: string) => {
     if (context.res) {
         // If this is server, return a temp redirect code with new location
         context.res.writeHead(302, { Location: target });
@@ -14,7 +14,7 @@ export const Redirect = (context: any, target: string) => {
         Router.replace(target);
     }
 
-    return { props: {} };
+    return {};
 };
 
 export const withAuth = <T extends object>(WrappedComponent: NextPage<T>) => {
