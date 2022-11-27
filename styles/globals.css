@@ -18,4 +18,16 @@
     .file-input:focus {
         @apply outline-0 !important;
     }
+
+    /* Reset daisy ui default */
+    .select {
+        @apply font-normal !important;
+    }
+
+    /* Number Input Reset */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+    }
 }

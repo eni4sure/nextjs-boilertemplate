@@ -1,3 +1,3 @@
-# nextjs-tailwind-typescript-starter
+# nextjs-typescript-starter-with-tailwind
 
-This is nextjs-tailwind-typescript-starter built with NextJS, Typescript and TailwindCSS
+This is nextjs-typescript-starter-with-tailwind built with NextJS, Typescript and TailwindCSS
