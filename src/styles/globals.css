@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Library CSS import */
 @import url("react-toastify/dist/ReactToastify.css");
 
 @layer base {
@@ -11,7 +12,8 @@
         font-family: "DM Sans", sans-serif;
     }
 
-    /* Remove daisy ui outline on form elements */
+    /* Daisy UI Resets */
+    /* =========================== */
     .input:focus,
     .select:focus,
     .textarea:focus,
@@ -19,15 +21,14 @@
         @apply outline-0 !important;
     }
 
-    /* Reset daisy ui default */
     .select {
         @apply font-normal !important;
     }
 
-    /* Number Input Reset */
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
         margin: 0;
         -webkit-appearance: none;
     }
+    /* =========================== */
 }

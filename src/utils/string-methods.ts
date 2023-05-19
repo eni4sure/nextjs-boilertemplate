@@ -4,4 +4,6 @@ class StringMethods {
     }
 }
 
-export default new StringMethods();
+const stringMethods = new StringMethods();
+
+export default stringMethods;

@@ -4,18 +4,16 @@ import { deleteCookie, getCookie, hasCookie } from "cookies-next";
 
 const baseURL = process.env.BACKEND_BASE_URL;
 
-const config: any = {
+// Create new axios instance
+const $http: AxiosInstance = axios.create({
     baseURL,
     timeout: 30000,
     headers: {
-        "Content-Type": "application/json"
-    }
-};
+        "Content-Type": "application/json",
+    },
+});
 
-// Create new axios instance
-const $http: AxiosInstance = axios.create(config);
-
-$http.interceptors.request.use((config: any) => {
+$http.interceptors.request.use((config) => {
     // If auth-token is available, add it to the Axios API header
     if (hasCookie("auth-token", {})) {
         config.headers["Authorization"] = `Bearer ${getCookie("auth-token", {})}`;

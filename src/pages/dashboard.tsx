@@ -1,9 +1,7 @@
-import type { NextPage } from "next";
+// import { } from "/components"
+import { withAuth, useUser } from "@/utils";
 
-// import { } from "../components"
-import { withAuth, useUser } from "../utils";
-
-const Dashboard: NextPage = () => {
+function Dashboard() {
     const { user } = useUser();
 
     return (
@@ -12,11 +10,11 @@ const Dashboard: NextPage = () => {
                 {/* <div className="m-auto w-full max-w-8xl"> */}
 
                 <div className="m-auto max-w-8xl">
-                    <h3 className="text-5xl font-semibold my-5">Dashboard 1 {user?.firstName}</h3>
+                    <h3 className="text-5xl font-semibold my-5">Dashboard - User: {JSON.stringify(user)}</h3>
                 </div>
             </main>
         </>
     );
-};
+}
 
 export default withAuth(Dashboard);

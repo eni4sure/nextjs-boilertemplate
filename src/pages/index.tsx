@@ -1,11 +1,11 @@
-import type { NextPage } from "next";
+// import { } from "@/utils";
+import { SEO } from "@/components";
 
-// import { } from "../utils";
-// import { } from "../components"
-
-const Home: NextPage = () => {
+export default function Home() {
     return (
         <>
+            <SEO title="Home" />
+
             <main className="flex flex-col items-center min-h-screen p-5">
                 {/* <div className="m-auto w-full max-w-8xl"> */}
                 <div className="m-auto max-w-8xl">
@@ -14,6 +14,4 @@ const Home: NextPage = () => {
             </main>
         </>
     );
-};
-
-export default Home;
+}
