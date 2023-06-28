@@ -7,4 +7,4 @@ export { withAuth, withoutAuth, Redirect } from "./auth-guard";
 export { default as useUser } from "./use-user";
 
 // Custom Mehtods
-export { default as stringMethods } from "./string-methods";
+export * as stringMethods from "./string-methods";

@@ -2,16 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import { getCookie, hasCookie } from "cookies-next";
 
-import { userGetMe } from "@/http";
+import { APIGetCurrentUser } from "@/http";
 
-const useUser = () => {
+export default function useUser() {
     const {
         isError,
         isLoading,
         isRefetching,
-        data: userData,
+        data: userQuery,
         refetch,
-    } = useQuery(["auth-user"], userGetMe, {
+    } = useQuery(["auth-user"], APIGetCurrentUser, {
         cacheTime: Infinity,
         staleTime: 60000 * 10 /* 10 mins */,
     });
@@ -28,7 +28,7 @@ const useUser = () => {
 
         user = decodedToken;
     } else {
-        user = userData?.data.data || null;
+        user = userQuery?.data || null;
     }
 
     return {
@@ -37,6 +37,4 @@ const useUser = () => {
         isAuthenticated,
         refreshAuthState: refetch,
     };
-};
-
-export default useUser;
+}
