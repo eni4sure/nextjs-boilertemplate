@@ -6,5 +6,5 @@ export { withAuth, withoutAuth, Redirect } from "./auth-guard";
 // Custom Hooks
 export { default as useUser } from "./use-user";
 
-// Custom Mehtods
+// Custom Methods
 export * as stringMethods from "./string-methods";
