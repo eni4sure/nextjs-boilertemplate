@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
+import { getCookie, setCookie } from "cookies-next";
 import jwt_decode, { JwtPayload } from "jwt-decode";
-import { getCookie, hasCookie, setCookie } from "cookies-next";
 
 const baseURL = process.env.BACKEND_BASE_URL;
 
@@ -16,20 +16,22 @@ const $http: AxiosInstance = axios.create({
 $http.interceptors.request.use(async (config) => {
     await refreshAuthTokenLogic();
 
-    // If access-token is available, add it to the Axios API header
-    if (hasCookie("access-token", {})) {
-        config.headers["Authorization"] = `Bearer ${getCookie("access-token", {})}`;
+    const accessToken = getCookie("access-token", {});
+
+    // If access-token is available, add it to the Axios Authorization header
+    if (accessToken) {
+        config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
 
     return config;
 });
 
 export const refreshAuthTokenLogic = async () => {
-    // if access-token or refresh-token is not available, bail out
-    if (!hasCookie("access-token", {}) || !hasCookie("refresh-token", {})) return;
-
     const accessTokenJWT = getCookie("access-token", {}) as string;
     const refreshTokenJWT = getCookie("refresh-token", {}) as string;
+
+    // if access-token or refresh-token is not available, bail out
+    if (!accessTokenJWT || !refreshTokenJWT) return;
 
     const accessToken: JwtPayload = jwt_decode(accessTokenJWT);
     const refreshToken: JwtPayload = jwt_decode(refreshTokenJWT);

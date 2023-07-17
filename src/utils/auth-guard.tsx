@@ -1,6 +1,6 @@
 import React from "react";
 import Router from "next/router";
-import { hasCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 import { NextPage, NextPageContext } from "next";
 
 // Custom function to handle Redirect during getInitialProps
@@ -29,10 +29,10 @@ export const withAuth = <P extends object>(WrappedComponent: React.ComponentType
     };
 
     WithAuthLogic.getInitialProps = async (context: NextPageContext) => {
-        // If the access-token doesn't exist, redirect to /login
-        if (!hasCookie("access-token", context)) {
-            return Redirect(context, `/auth/login?next=${context.asPath}`);
-        }
+        const accessToken = getCookie("access-token", context);
+
+        // If the access-token doesn't exist, redirect to /login with the current route as the next route parameter.
+        if (!accessToken) return Redirect(context, `/auth/login?next=${context.asPath}`);
 
         return { query: context.query };
     };
@@ -52,18 +52,17 @@ export const withoutAuth = <P extends object>(WrappedComponent: React.ComponentT
     };
 
     WithoutAuthLogic.getInitialProps = async (context: NextPageContext) => {
-        // If the access-token exist
-        if (hasCookie("access-token", context)) {
-            // If the there's a pending next route, go there.
-            if (context.query && context.query.next) {
-                return Redirect(context, `${context.query.next}`);
-            }
+        const accessToken = getCookie("access-token", context);
 
-            // Go to dashboard
-            return Redirect(context, "/dashboard");
+        if (!accessToken) return { query: context.query };
+
+        // If the access-token exist and there's a pending next route, go there.
+        if (context.query && context.query.next) {
+            return Redirect(context, `${context.query.next}`);
         }
 
-        return { query: context.query };
+        // otherwise, redirect to /dashboard
+        return Redirect(context, "/dashboard");
     };
 
     return WithoutAuthLogic;
