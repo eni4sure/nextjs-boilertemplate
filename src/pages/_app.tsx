@@ -34,6 +34,13 @@ export default function App({ Component, pageProps }: AppProps) {
                                 if (error.response.data.message === "-middleware/user-not-authorized") {
                                     if (router.pathname !== "/dashboard/unauthorized") router.replace("/dashboard/unauthorized");
                                 }
+
+                                // this will run if the token is expired, and we've tried to refresh the token, but it's also expired
+                                if (error.response.data.message === "-middleware/token-expired") {
+                                    // update the message to the user
+                                    error.response.data.message = "Login session has expired. Please login again.";
+                                    router.replace("/logout");
+                                }
                             }
                         }
                     },

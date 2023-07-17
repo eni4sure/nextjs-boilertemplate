@@ -1,6 +1,6 @@
-import Router from "next/router";
-import axios, { AxiosError, AxiosInstance } from "axios";
-import { deleteCookie, getCookie, hasCookie } from "cookies-next";
+import axios, { AxiosInstance } from "axios";
+import jwt_decode, { JwtPayload } from "jwt-decode";
+import { getCookie, hasCookie, setCookie } from "cookies-next";
 
 const baseURL = process.env.BACKEND_BASE_URL;
 
@@ -13,29 +13,49 @@ const $http: AxiosInstance = axios.create({
     },
 });
 
-$http.interceptors.request.use((config) => {
-    // If auth-token is available, add it to the Axios API header
-    if (hasCookie("auth-token", {})) {
-        config.headers["Authorization"] = `Bearer ${getCookie("auth-token", {})}`;
+$http.interceptors.request.use(async (config) => {
+    await refreshAuthTokenLogic();
+
+    // If access-token is available, add it to the Axios API header
+    if (hasCookie("access-token", {})) {
+        config.headers["Authorization"] = `Bearer ${getCookie("access-token", {})}`;
     }
 
     return config;
 });
 
-$http.interceptors.response.use(undefined, async (error: AxiosError<any>) => {
-    // If response returned, Intercept the responses and check if status code is 401
-    if (error.response && error.response.status === 401) {
-        switch (error.response.data.message) {
-            case "-middleware/token-expired": {
-                // TODO: Implement refresh token at some point :) instead of logging out
-                deleteCookie("auth-token", {});
-                if (Router.pathname !== "/auth/login") Router.replace({ pathname: "/auth/login", query: { next: Router.pathname } });
-                break;
+export const refreshAuthTokenLogic = async () => {
+    // if access-token or refresh-token is not available, bail out
+    if (!hasCookie("access-token", {}) || !hasCookie("refresh-token", {})) return;
+
+    const accessTokenJWT = getCookie("access-token", {}) as string;
+    const refreshTokenJWT = getCookie("refresh-token", {}) as string;
+
+    const accessToken: JwtPayload = jwt_decode(accessTokenJWT);
+    const refreshToken: JwtPayload = jwt_decode(refreshTokenJWT);
+
+    // confirm that both access-token and refresh-token have exp property
+    if (!accessToken.exp || !refreshToken.exp) return;
+
+    // Check if accessToken is expired and refreshToken has not expired
+    const accessTokenIsExpired = accessToken.exp * 1000 < Date.now();
+    const refreshTokenIsNotExpired = refreshToken.exp * 1000 > Date.now();
+
+    if (accessTokenIsExpired && refreshTokenIsNotExpired) {
+        try {
+            const { data: response, status } = await axios.post(baseURL + "/v1/auth/refresh-tokens", { refreshToken: refreshTokenJWT });
+
+            if (status === 200 && response.data) {
+                // update access-token and refresh-token
+                setCookie("access-token", response.data.accessToken);
+                setCookie("refresh-token", response.data.refreshToken);
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                // console.log("error.response:", error.response);
             }
         }
     }
-
-    return Promise.reject(error);
-});
+};
 
 export default $http;

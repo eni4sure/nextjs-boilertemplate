@@ -29,8 +29,8 @@ export const withAuth = <P extends object>(WrappedComponent: React.ComponentType
     };
 
     WithAuthLogic.getInitialProps = async (context: NextPageContext) => {
-        // If the auth-token doesn't exist, redirect to /login
-        if (!hasCookie("auth-token", context)) {
+        // If the access-token doesn't exist, redirect to /login
+        if (!hasCookie("access-token", context)) {
             return Redirect(context, `/auth/login?next=${context.asPath}`);
         }
 
@@ -52,8 +52,8 @@ export const withoutAuth = <P extends object>(WrappedComponent: React.ComponentT
     };
 
     WithoutAuthLogic.getInitialProps = async (context: NextPageContext) => {
-        // If the auth-token exist
-        if (hasCookie("auth-token", context)) {
+        // If the access-token exist
+        if (hasCookie("access-token", context)) {
             // If the there's a pending next route, go there.
             if (context.query && context.query.next) {
                 return Redirect(context, `${context.query.next}`);

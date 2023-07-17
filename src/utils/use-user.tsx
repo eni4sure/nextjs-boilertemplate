@@ -2,39 +2,35 @@ import { useQuery } from "@tanstack/react-query";
 import jwt_decode, { JwtPayload } from "jwt-decode";
 import { getCookie, hasCookie } from "cookies-next";
 
-import { APIGetCurrentUser } from "@/http";
+import { APIVersion1GetCurrentUser } from "@/http";
 
 export default function useUser() {
-    const {
-        isError,
-        isLoading,
-        isRefetching,
-        data: userQuery,
-        refetch,
-    } = useQuery(["auth-user"], APIGetCurrentUser, {
+    const { data: userQuery, ...utils } = useQuery(["auth-user"], APIVersion1GetCurrentUser, {
         cacheTime: Infinity,
         staleTime: 60000 * 10 /* 10 mins */,
     });
 
-    const isLoadingUser = isLoading || isRefetching;
-    const isAuthenticated = hasCookie("auth-token");
+    const isAuthenticated = hasCookie("access-token");
 
     let user = null;
 
-    if (isError && isAuthenticated) {
-        const decodedToken: JwtPayload = jwt_decode((getCookie("auth-token") as string) || "");
+    try {
+        const decodedToken: JwtPayload = jwt_decode((getCookie("access-token") as string) || "");
         delete decodedToken.iat;
         delete decodedToken.exp;
 
         user = decodedToken;
-    } else {
+    } catch (error) {
+        // do nothing, catches error like "invalid token", "token expired", etc
+    }
+
+    if (userQuery) {
         user = userQuery?.data || null;
     }
 
     return {
         user,
-        isLoadingUser,
         isAuthenticated,
-        refreshAuthState: refetch,
+        ...utils,
     };
 }
