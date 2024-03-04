@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-export interface SeoProp {
+export interface SEOProp {
     icon?: string;
     title: string;
     keywords?: string;
@@ -9,7 +9,7 @@ export interface SeoProp {
     image?: string;
 }
 
-export default function Seo({ icon, title, keywords, description, image }: SeoProp) {
+export default function SEO({ icon, title, keywords, description, image }: SEOProp) {
     const router = useRouter();
 
     const SITE_BASE_URL = "https://nextjs-boilertemplate.com";

@@ -1,10 +1,11 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from "tailwindcss";
+
+const config: Config = {
     content: [
         // break line
+        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
         extend: {
@@ -28,6 +29,12 @@ module.exports = {
                     "accent": "#FFB800",
                     "neutral": "#010101",
                     "base-100": "#FFFFFF",
+
+                    // TODO: update as needed
+                    "info": "#22D3EE",
+                    "success": "#15803D",
+                    "warning": "#FBBF24",
+                    "error": "#DC2626",
                 },
             },
             // "dark"
@@ -40,3 +47,5 @@ module.exports = {
         darkTheme: "dark",
     },
 };
+
+export default config;

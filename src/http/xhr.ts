@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 import { getCookie, setCookie } from "cookies-next";
-import jwt_decode, { JwtPayload } from "jwt-decode";
 
 const baseURL = process.env.BACKEND_BASE_URL;
 
@@ -33,8 +33,8 @@ export const refreshAuthTokenLogic = async () => {
     // if access-token or refresh-token is not available, bail out
     if (!accessTokenJWT || !refreshTokenJWT) return;
 
-    const accessToken: JwtPayload = jwt_decode(accessTokenJWT);
-    const refreshToken: JwtPayload = jwt_decode(refreshTokenJWT);
+    const accessToken: JwtPayload = jwtDecode(accessTokenJWT);
+    const refreshToken: JwtPayload = jwtDecode(refreshTokenJWT);
 
     // confirm that both access-token and refresh-token have exp property
     if (!accessToken.exp || !refreshToken.exp) return;

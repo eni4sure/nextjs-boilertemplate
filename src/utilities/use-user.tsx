@@ -1,13 +1,14 @@
 import { getCookie } from "cookies-next";
 import { useQuery } from "@tanstack/react-query";
-import jwt_decode, { JwtPayload } from "jwt-decode";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { APIVersion1GetCurrentUser } from "@/http";
 
 export default function useUser() {
-    const { data: userQuery, ...utils } = useQuery(["auth-user"], APIVersion1GetCurrentUser, {
-        cacheTime: Infinity,
+    const { data: userQuery, ...utils } = useQuery({
+        queryKey: ["auth-user"],
         staleTime: 60000 * 10 /* 10 mins */,
+        queryFn: () => APIVersion1GetCurrentUser(),
     });
 
     const accessToken = getCookie("access-token", {}) as string;
@@ -15,7 +16,7 @@ export default function useUser() {
     let user = null;
 
     try {
-        const decodedToken: JwtPayload = jwt_decode(accessToken || "");
+        const decodedToken: JwtPayload = jwtDecode(accessToken || "");
         delete decodedToken.iat;
         delete decodedToken.exp;
 
@@ -25,7 +26,7 @@ export default function useUser() {
     }
 
     if (userQuery) {
-        user = userQuery?.data || null;
+        user = userQuery.data || null;
     }
 
     return {
