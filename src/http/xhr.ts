@@ -1,8 +1,9 @@
+import { CONFIGS } from "@/configs";
 import axios, { AxiosInstance } from "axios";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { getCookie, setCookie } from "cookies-next";
 
-const baseURL = process.env.BACKEND_BASE_URL;
+const baseURL = CONFIGS.URL.API_BASE_URL;
 
 // Create new axios instance
 const $http: AxiosInstance = axios.create({

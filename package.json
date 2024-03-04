@@ -1,37 +1,38 @@
 {
-  "name": "nextjs-boilertemplate",
-  "version": "1.0.0",
-  "private": true,
-  "author": "Eniola Osabiya <eosabiya@gmail.com>",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@tanstack/react-query": "^5.24.8",
-    "@tanstack/react-query-devtools": "^5.24.8",
-    "axios": "^1.6.7",
-    "cookies-next": "^4.1.1",
-    "jwt-decode": "^4.0.0",
-    "next": "14.1.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-toastify": "^10.0.4",
-    "valtio": "^1.13.2"
-  },
-  "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^5.20.1",
-    "@types/node": "^20.11.24",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
-    "autoprefixer": "^10.4.18",
-    "daisyui": "^4.7.2",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.1.1",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3"
-  }
+    "name": "nextjs-boilertemplate",
+    "version": "1.0.0",
+    "private": true,
+    "author": "Eniola Osabiya <eosabiya@gmail.com>",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@sentry/nextjs": "^7.105.0",
+        "@tanstack/react-query": "^5.24.8",
+        "@tanstack/react-query-devtools": "^5.24.8",
+        "axios": "^1.6.7",
+        "cookies-next": "^4.1.1",
+        "jwt-decode": "^4.0.0",
+        "next": "14.1.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-toastify": "^10.0.4",
+        "valtio": "^1.13.2"
+    },
+    "devDependencies": {
+        "@tanstack/eslint-plugin-query": "^5.20.1",
+        "@types/node": "^20.11.24",
+        "@types/react": "^18.2.61",
+        "@types/react-dom": "^18.2.19",
+        "autoprefixer": "^10.4.18",
+        "daisyui": "^4.7.2",
+        "eslint": "^8.57.0",
+        "eslint-config-next": "14.1.1",
+        "postcss": "^8.4.35",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5.3.3"
+    }
 }

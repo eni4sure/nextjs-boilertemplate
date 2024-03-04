@@ -14,7 +14,9 @@ function Dashboard() {
                 {/* <div className="m-auto w-full max-w-8xl"> */}
 
                 <div className="m-auto max-w-8xl">
-                    <h3 className="text-5xl font-semibold my-5" suppressHydrationWarning>Dashboard - User: {JSON.stringify(user)}</h3>
+                    <h3 className="text-5xl font-semibold my-5" suppressHydrationWarning>
+                        Dashboard - User: {JSON.stringify(user)}
+                    </h3>
                 </div>
             </main>
         </>
