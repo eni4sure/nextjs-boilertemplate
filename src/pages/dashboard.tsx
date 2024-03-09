@@ -10,11 +10,11 @@ function Dashboard() {
         <>
             <SEO title="Dashboard" />
 
-            <main className="flex flex-col items-center min-h-screen p-5">
+            <main className="flex min-h-screen flex-col items-center p-5">
                 {/* <div className="m-auto w-full max-w-8xl"> */}
 
-                <div className="m-auto max-w-8xl">
-                    <h3 className="text-5xl font-semibold my-5" suppressHydrationWarning>
+                <div className="max-w-8xl m-auto">
+                    <h3 className="my-5 text-5xl font-semibold" suppressHydrationWarning>
                         Dashboard - User: {JSON.stringify(user)}
                     </h3>
                 </div>
