@@ -15,7 +15,7 @@ import packageInfo from "../../package.json";
 // 2. Duplicate the development object and replace the values with the new environment's values.
 
 const APP_VERSION = packageInfo.version;
-const DEPLOYMENT_ENV = process.env.NODE_ENV || "development";
+const DEPLOYMENT_ENV = process.env.DEPLOYMENT_ENV || "development";
 
 const GLOBAL_CONSTANTS = {
     // System Constants
@@ -72,7 +72,7 @@ const CONFIG_BUILDER = {
 
 // Check if DEPLOYMENT_ENV is valid
 if (!Object.keys(CONFIG_BUILDER).includes(DEPLOYMENT_ENV)) {
-    throw new Error(`Invalid NODE_ENV: ${DEPLOYMENT_ENV}`);
+    throw new Error(`Invalid DEPLOYMENT_ENV: ${DEPLOYMENT_ENV}`);
 }
 
 const CONFIGS = CONFIG_BUILDER[DEPLOYMENT_ENV as keyof typeof CONFIG_BUILDER];
